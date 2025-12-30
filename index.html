@@ -138,84 +138,188 @@
             box-shadow: 0 0 30px rgba(0, 212, 255, 0.8);
         }
         
-        /* Visitor Counter */
+        /* Enhanced Visitor Counter */
         .visitor-counter {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 25px;
+            right: 25px;
             z-index: 1000;
-            background: rgba(10, 14, 39, 0.9);
-            backdrop-filter: blur(20px);
-            padding: 15px 20px;
-            border-radius: 15px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(0, 102, 255, 0.15));
+            backdrop-filter: blur(25px);
+            padding: 20px 25px;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 212, 255, 0.4);
+            box-shadow: 
+                0 8px 32px rgba(0, 212, 255, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 12px;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .visitor-counter::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(0, 212, 255, 0.1),
+                transparent
+            );
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
         
         .visitor-counter:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.5);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 15px 50px rgba(0, 212, 255, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
             border-color: var(--primary);
         }
         
         body.light-mode .visitor-counter {
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(0, 102, 255, 0.3);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 248, 255, 0.95));
+            border: 2px solid rgba(0, 102, 255, 0.3);
+            box-shadow: 
+                0 8px 32px rgba(0, 102, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+        
+        .visitor-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .visitor-icon-wrapper {
+            position: relative;
+            width: 50px;
+            height: 50px;
         }
         
         .visitor-icon {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.2em;
-            animation: pulse 2s ease-in-out infinite;
+            font-size: 1.4em;
+            animation: pulse 2.5s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .visitor-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            animation: ripple 2s infinite;
         }
         
         @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7); }
-            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(0, 212, 255, 0); }
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+            }
+            50% { 
+                transform: scale(1.08); 
+                box-shadow: 0 0 30px rgba(0, 212, 255, 0.8);
+            }
         }
         
-        .visitor-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
+        @keyframes ripple {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
         }
         
         .visitor-label {
-            font-size: 0.75em;
+            font-size: 0.8em;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        
+        .visitor-badge-wrapper {
+            position: relative;
+            z-index: 1;
+            padding: 8px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 120px;
+        }
+        
+        body.light-mode .visitor-badge-wrapper {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 102, 255, 0.3);
+        }
+        
+        .visitor-badge-wrapper img {
+            display: block;
+            height: 22px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+        
+        .visitor-stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+        
+        .stat-label {
+            font-size: 0.65em;
             color: #888;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-weight: 600;
         }
         
-        .visitor-count {
-            font-size: 1.5em;
+        .stat-value {
+            font-size: 0.9em;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--accent);
             font-family: 'Courier New', monospace;
-            letter-spacing: 2px;
-            min-width: 80px;
-        }
-        
-        .count-animation {
-            display: inline-block;
-            animation: countUp 0.5s ease-out;
-        }
-        
-        @keyframes countUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         
         .container {
@@ -766,18 +870,14 @@
             }
             
             .visitor-counter {
-                bottom: 10px;
-                right: 10px;
-                padding: 12px 15px;
+                bottom: 15px;
+                right: 15px;
+                padding: 15px 18px;
             }
             
             .visitor-icon {
-                width: 35px;
-                height: 35px;
-                font-size: 1em;
-            }
-            
-            .visitor-count {
+                width: 40px;
+                height: 40px;
                 font-size: 1.2em;
             }
         }
@@ -816,16 +916,18 @@
         </button>
     </div>
     
-    <!-- Visitor Counter -->
+    <!-- Enhanced Visitor Counter -->
     <div class="visitor-counter">
-        <div class="visitor-icon">
-            <i class="fas fa-eye"></i>
-        </div>
-        <div class="visitor-info">
-            <div class="visitor-label">Page Views</div>
-            <div class="visitor-count count-animation" id="visitor-count">
-                <img src="https://visitor-badge.laobi.icu/badge?page_id=ayush.pathak.resume" alt="visitors" style="vertical-align: middle;">
+        <div class="visitor-header">
+            <div class="visitor-icon-wrapper">
+                <div class="visitor-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
             </div>
+            <div class="visitor-label">PAGE VIEWS</div>
+        </div>
+        <div class="visitor-badge-wrapper">
+            <img src="https://visitor-badge.laobi.icu/badge?page_id=ayush.pathak.resume" alt="visitors">
         </div>
     </div>
     
