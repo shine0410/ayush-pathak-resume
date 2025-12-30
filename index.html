@@ -16,704 +16,738 @@
             --primary: #667eea;
             --secondary: #764ba2;
             --accent: #f093fb;
-            --bg-light: #f8f9fa;
-            --bg-dark: #1a1a2e;
-            --text-light: #333;
-            --text-dark: #f8f9fa;
-            --card-light: #ffffff;
-            --card-dark: #16213e;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.5;
             transition: all 0.3s ease;
+            font-size: 14px;
         }
         
         body.light-mode {
-            background: var(--bg-light);
-            color: var(--text-light);
+            background: #f0f2f5;
+            color: #2c3e50;
         }
         
         body.dark-mode {
-            background: var(--bg-dark);
-            color: var(--text-dark);
+            background: #0f0f1e;
+            color: #e0e0e0;
         }
         
-        .theme-toggle {
+        .controls {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: none;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.2em;
         }
         
-        .theme-toggle:hover {
-            transform: scale(1.1) rotate(15deg);
-        }
-        
-        .print-btn {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            z-index: 1000;
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            border: none;
-            padding: 12px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
-            color: white;
-            font-weight: 600;
-        }
-        
-        .print-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 20px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 25px;
+            min-height: 100vh;
         }
         
-        .hero {
-            text-align: center;
-            padding: 80px 20px 60px;
+        /* LEFT SIDEBAR */
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        
+        .profile-card {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
+            padding: 30px 20px;
             border-radius: 20px;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-            animation: fadeInDown 0.8s ease;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: moveBackground 20s linear infinite;
-        }
-        
-        @keyframes moveBackground {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 1;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+            margin-bottom: 20px;
         }
         
         .profile-img {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            border: 5px solid white;
+            border: 4px solid rgba(255,255,255,0.3);
+            margin-bottom: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .profile-card h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        
+        .profile-card .role {
+            font-size: 1em;
+            opacity: 0.95;
             margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            animation: float 3s ease-in-out infinite;
+            font-weight: 500;
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .hero h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            animation: fadeIn 1s ease 0.3s both;
-        }
-        
-        .hero .subtitle {
-            font-size: 1.5em;
-            opacity: 0.9;
-            margin-bottom: 20px;
-            animation: fadeIn 1s ease 0.5s both;
-        }
-        
-        .contact-links {
+        .contact-item {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-            animation: fadeIn 1s ease 0.7s both;
-        }
-        
-        .contact-links a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 25px;
-            transition: all 0.3s ease;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            font-size: 0.9em;
             backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
         
-        .contact-links a:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
+        .contact-item:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateX(5px);
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .contact-item i {
+            width: 20px;
+            text-align: center;
         }
         
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
+        .sidebar-section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        
+        .dark-mode .sidebar-section {
+            background: #1a1d2e;
+        }
+        
+        .sidebar-section h3 {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .skill-bar {
+            margin-bottom: 12px;
+        }
+        
+        .skill-name {
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .dark-mode .progress-bar {
+            background: #2a2d3e;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+        
+        .interest-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tag {
+            padding: 6px 12px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .lang-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9em;
+        }
+        
+        .dark-mode .lang-item {
+            border-bottom-color: #2a2d3e;
+        }
+        
+        .lang-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* MAIN CONTENT */
+        .main-content {
+            padding-top: 10px;
+        }
+        
+        .summary {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+        
+        .dark-mode .summary {
+            background: #1a1d2e;
         }
         
         .section {
-            margin-bottom: 40px;
-            animation: fadeIn 0.8s ease;
+            margin-bottom: 25px;
         }
         
         .section-title {
-            font-size: 2em;
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 10px;
-            display: inline-block;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 2px;
-        }
-        
-        .card {
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .light-mode .card {
-            background: var(--card-light);
-        }
-        
-        .dark-mode .card {
-            background: var(--card-dark);
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        }
-        
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
+            font-size: 1.5em;
             margin-bottom: 15px;
-            flex-wrap: wrap;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
             gap: 10px;
-        }
-        
-        .card-title {
-            font-size: 1.3em;
             font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .card-company {
-            font-size: 1.1em;
-            font-weight: 600;
-            margin-top: 5px;
-        }
-        
-        .card-date {
-            color: #888;
-            font-size: 0.9em;
-            font-style: italic;
-        }
-        
-        .card-desc {
-            color: #666;
-            font-size: 0.95em;
-            margin: 10px 0;
-            font-style: italic;
-        }
-        
-        .dark-mode .card-desc {
-            color: #aaa;
-        }
-        
-        .card ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        
-        .card li {
-            padding-left: 25px;
-            position: relative;
-            margin: 10px 0;
-        }
-        
-        .card li::before {
-            content: '▹';
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-            font-size: 1.2em;
-        }
-        
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .skill-item {
-            padding: 15px 20px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .skill-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
         }
         
         .timeline {
             position: relative;
-            padding-left: 30px;
+            padding-left: 25px;
         }
         
         .timeline::before {
             content: '';
             position: absolute;
             left: 0;
-            top: 0;
-            bottom: 0;
+            top: 10px;
+            bottom: 10px;
             width: 2px;
             background: linear-gradient(180deg, var(--primary), var(--accent));
         }
         
         .timeline-item {
             position: relative;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode .timeline-item {
+            background: #1a1d2e;
+        }
+        
+        .timeline-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 25px rgba(102, 126, 234, 0.2);
         }
         
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -36px;
-            top: 0;
-            width: 12px;
-            height: 12px;
+            left: -31px;
+            top: 25px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: var(--primary);
-            border: 3px solid var(--bg-light);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
         }
         
         .dark-mode .timeline-item::before {
-            border-color: var(--bg-dark);
+            border-color: #0f0f1e;
         }
         
-        .interests-grid {
+        .item-header {
             display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 20px;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+            gap: 15px;
         }
         
-        .interest-tag {
-            padding: 10px 20px;
-            background: rgba(102, 126, 234, 0.1);
-            border: 2px solid var(--primary);
-            border-radius: 25px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            cursor: pointer;
+        .item-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 3px;
         }
         
-        .interest-tag:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-        
-        .summary-box {
-            padding: 30px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
-            border-left: 5px solid var(--primary);
-            border-radius: 10px;
-            margin-bottom: 40px;
-            font-size: 1.05em;
-            line-height: 1.8;
-        }
-        
-        .achievement-badge {
-            display: inline-block;
-            padding: 5px 15px;
-            background: linear-gradient(135deg, #ffd700, #ffed4e);
-            color: #333;
-            border-radius: 20px;
+        .item-company {
             font-weight: 600;
-            margin-top: 10px;
+            font-size: 1em;
+            margin-bottom: 3px;
+        }
+        
+        .item-date {
+            color: #888;
+            font-size: 0.85em;
+            white-space: nowrap;
+            font-style: italic;
+        }
+        
+        .item-desc {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        
+        .dark-mode .item-desc {
+            color: #aaa;
+        }
+        
+        .timeline-item ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .timeline-item li {
+            padding-left: 20px;
+            position: relative;
+            margin: 6px 0;
             font-size: 0.9em;
         }
         
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2em; }
-            .hero .subtitle { font-size: 1.2em; }
-            .section-title { font-size: 1.5em; }
-            .card-header { flex-direction: column; }
-            .theme-toggle, .print-btn { right: 10px; }
+        .timeline-item li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .project-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            border-top: 3px solid var(--primary);
+        }
+        
+        .dark-mode .project-card {
+            background: #1a1d2e;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.25);
+        }
+        
+        .project-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .project-card ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+        
+        .project-card li {
+            padding-left: 18px;
+            position: relative;
+            margin: 5px 0;
+            font-size: 0.88em;
+        }
+        
+        .project-card li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .achievement-card {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            padding: 20px;
+            border-radius: 12px;
+            color: #333;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .achievement-card h4 {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        @media (max-width: 968px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: relative;
+                top: 0;
+            }
+            
+            .controls {
+                top: 10px;
+                right: 10px;
+            }
         }
         
         @media print {
-            .theme-toggle, .print-btn { display: none; }
-            .hero { background: #667eea; }
-            .card { page-break-inside: avoid; }
+            .controls { display: none; }
+            .container { grid-template-columns: 280px 1fr; gap: 15px; }
+            body { background: white !important; color: black !important; }
+            .timeline-item, .project-card { page-break-inside: avoid; }
         }
         
-        .scroll-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            z-index: 999;
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .scroll-top.visible {
-            display: flex;
-        }
-        
-        .scroll-top:hover {
-            transform: translateY(-5px);
+        .animate {
+            animation: fadeIn 0.6s ease forwards;
         }
     </style>
 </head>
 <body class="light-mode">
-    <button class="theme-toggle" onclick="toggleTheme()">
-        <i class="fas fa-moon"></i>
-    </button>
-    
-    <button class="print-btn" onclick="window.print()">
-        <i class="fas fa-download"></i> Download PDF
-    </button>
-    
-    <button class="scroll-top" onclick="scrollToTop()">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+    <div class="controls">
+        <button class="btn" onclick="toggleTheme()" title="Toggle Theme">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="btn" onclick="window.print()" title="Download PDF">
+            <i class="fas fa-download"></i>
+        </button>
+    </div>
     
     <div class="container">
-        <div class="hero">
-            <div class="hero-content">
-                <img src="https://ui-avatars.com/api/?name=Ayush+Pathak&size=150&background=667eea&color=fff&bold=true" alt="Ayush Pathak" class="profile-img">
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar">
+            <div class="profile-card">
+                <img src="https://ui-avatars.com/api/?name=Ayush+Pathak&size=120&background=ffffff&color=667eea&bold=true&font-size=0.4" alt="Ayush Pathak" class="profile-img">
                 <h1>Ayush Pathak</h1>
-                <div class="subtitle">Senior UAV System Engineer</div>
-                <div class="contact-links">
-                    <a href="mailto:shining.ayushpathak@gmail.com"><i class="fas fa-envelope"></i> Email</a>
-                    <a href="tel:9144248735"><i class="fas fa-phone"></i> +91 9144248735</a>
-                    <a href="https://linkedin.com/in/ayushpathak0410" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                    <a href="#"><i class="fas fa-map-marker-alt"></i> Bangalore</a>
+                <div class="role">UAV Operations Manager</div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>shining.ayushpathak@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+91 9144248735</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Bangalore, India</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <span>ayushpathak0410</span>
                 </div>
             </div>
-        </div>
-        
-        <div class="summary-box">
-            <strong>About Me:</strong> Results-driven UAV Operations Manager at GalaxEye with expertise in systems engineering and project management. I optimize operations and advance UAV systems through strategic planning and cross-functional collaboration. BTech graduate in Computer Science from LCIT Group of Institutions with proven experience at AERIAL IQ, where I spearheaded UAV system development including tethered drones and high-altitude operations. Passionate about leveraging technology to improve processes, empower teams, and drive impactful innovations in the UAV domain.
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title"><i class="fas fa-briefcase"></i> Work Experience</h2>
             
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="card">
-                        <div class="card-header">
-                            <div>
-                                <div class="card-title">UAV Operations Manager</div>
-                                <div class="card-company">GalaxEye Space</div>
-                            </div>
-                            <div class="card-date">04/2025 - Present | Bangalore</div>
-                        </div>
-                        <div class="card-desc">Space startup offering imagery through satellite-based surveillance with its multi-sensor imaging satellite.</div>
-                        <ul>
-                            <li>Served as the primary liaison between internal teams and external stakeholders, translating mission objectives into actionable tasks and data acquisition strategies</li>
-                            <li>Led a specialized project focused on remote sensing using advanced UAV systems for Agriculture Department IIRS-ISRO</li>
-                            <li>Managed and mentored a team of drone pilots and technicians, developing standard operating procedures (SOPs) and safety protocols to optimize mission efficiency</li>
-                            <li>Oversaw aspects of mission-level risk management, including real-time operational mitigation, to ensure safety and compliance with aviation regulations</li>
-                        </ul>
+            <div class="sidebar-section">
+                <h3><i class="fas fa-tools"></i> Skills</h3>
+                <div class="skill-bar">
+                    <div class="skill-name">Strategic Planning</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 95%"></div>
                     </div>
                 </div>
-                
-                <div class="timeline-item">
-                    <div class="card">
-                        <div class="card-header">
+                <div class="skill-bar">
+                    <div class="skill-name">Project Management</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-name">Team Leadership</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 92%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-name">UAV Operations</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 98%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-name">Systems Engineering</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 88%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3><i class="fas fa-language"></i> Languages</h3>
+                <div class="lang-item">
+                    <span><strong>Hindi</strong></span>
+                    <span>Native</span>
+                </div>
+                <div class="lang-item">
+                    <span><strong>English</strong></span>
+                    <span>Professional</span>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3><i class="fas fa-heart"></i> Interests</h3>
+                <div class="interest-tags">
+                    <div class="tag">🚁 UAV</div>
+                    <div class="tag">🔧 Arduino</div>
+                    <div class="tag">💡 IoT</div>
+                    <div class="tag">📱 Tech</div>
+                    <div class="tag">✈️ Drones</div>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3><i class="fas fa-certificate"></i> Certification</h3>
+                <div style="font-size: 0.9em;">
+                    <strong>AMCAT Test</strong><br>
+                    <span style="color: #888;">Quantitative Ability</span><br>
+                    <span style="color: var(--primary); font-weight: 600;">625/900 (87%)</span>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <div class="summary animate">
+                <strong style="color: var(--primary); font-size: 1.1em;">About Me</strong><br><br>
+                Results-driven UAV Operations Manager at GalaxEye with expertise in systems engineering and project management. I optimize operations and advance UAV systems through strategic planning and cross-functional collaboration. BTech graduate in Computer Science from LCIT with proven experience at AERIAL IQ, where I spearheaded UAV system development including tethered drones and high-altitude operations.
+            </div>
+            
+            <section class="section animate">
+                <h2 class="section-title"><i class="fas fa-briefcase"></i> Experience</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="item-header">
                             <div>
-                                <div class="card-title">Senior UAV System Engineer</div>
-                                <div class="card-company">Aerial IQ</div>
+                                <div class="item-title">UAV Operations Manager</div>
+                                <div class="item-company">GalaxEye Space</div>
                             </div>
-                            <div class="card-date">04/2023 - 02/2025 | Gurugram</div>
+                            <div class="item-date">04/2025 - Present</div>
                         </div>
-                        <div class="card-desc">Australia-based defense system UAV development startup</div>
+                        <div class="item-desc">Space startup offering satellite-based surveillance imagery</div>
+                        <ul>
+                            <li>Primary liaison between teams and stakeholders for mission objectives</li>
+                            <li>Led remote sensing project for Agriculture Dept IIRS-ISRO</li>
+                            <li>Managed drone pilots team, developed SOPs and safety protocols</li>
+                            <li>Oversaw mission-level risk management and aviation compliance</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Senior UAV System Engineer</div>
+                                <div class="item-company">Aerial IQ</div>
+                            </div>
+                            <div class="item-date">04/2023 - 02/2025</div>
+                        </div>
+                        <div class="item-desc">Australia-based defense UAV development startup</div>
                         <ul>
                             <li>Implemented innovative solutions to complex technical challenges</li>
-                            <li>Developed various features for automation of UAV technologies</li>
-                            <li>Led more than 6 NCNC projects</li>
-                            <li>Managed tech team and operation team resulting in a 20% increase in operational efficiency</li>
+                            <li>Developed automation features for UAV technologies</li>
+                            <li>Led 6+ NCNC projects successfully</li>
+                            <li>Managed teams resulting in 20% efficiency increase</li>
                         </ul>
                     </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="card">
-                        <div class="card-header">
+                    
+                    <div class="timeline-item">
+                        <div class="item-header">
                             <div>
-                                <div class="card-title">UAV System Engineer</div>
-                                <div class="card-company">Aerial IQ</div>
+                                <div class="item-title">UAV System Engineer</div>
+                                <div class="item-company">Aerial IQ</div>
                             </div>
-                            <div class="card-date">03/2022 - 04/2023 | Gurugram</div>
+                            <div class="item-date">03/2022 - 04/2023</div>
                         </div>
-                        <div class="card-desc">Australia-based defense system UAV development startup</div>
                         <ul>
-                            <li>Developed tethered system as product from scratch</li>
-                            <li>Conducted high altitude operations at 4500m AMSL</li>
+                            <li>Developed tethered system product from scratch</li>
+                            <li>High altitude operations at 4500m AMSL</li>
                             <li>Project lead for BVLOS operations</li>
-                            <li>Tethered system development for drones</li>
                         </ul>
                     </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="card">
-                        <div class="card-header">
+                    
+                    <div class="timeline-item">
+                        <div class="item-header">
                             <div>
-                                <div class="card-title">UAV System Engineer (Intern)</div>
-                                <div class="card-company">Aerial IQ</div>
+                                <div class="item-title">UAV System Engineer (Intern)</div>
+                                <div class="item-company">Aerial IQ</div>
                             </div>
-                            <div class="card-date">07/2021 - 10/2021 | Gurugram</div>
+                            <div class="item-date">07/2021 - 10/2021</div>
                         </div>
-                        <div class="card-desc">Australia-based defense system UAV development startup</div>
                         <ul>
-                            <li>Finished prototype development, testing & error handling</li>
+                            <li>Prototype development, testing & error handling</li>
                             <li>Co-axial frame tuning on Arducopter</li>
                             <li>Precision landing with docking station</li>
                         </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Education</h2>
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="card-title">B.Tech - Computer Science Engineering</div>
-                        <div class="card-company">Lakhmi Chand Institute of Technology</div>
+            </section>
+            
+            <section class="section animate">
+                <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Education</h2>
+                <div class="timeline-item">
+                    <div class="item-header">
+                        <div>
+                            <div class="item-title">B.Tech - Computer Science</div>
+                            <div class="item-company">Lakhmi Chand Institute of Technology</div>
+                        </div>
+                        <div class="item-date">2018 - 2022</div>
                     </div>
-                    <div class="card-date">06/2018 - 06/2022 | Bilaspur</div>
                 </div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title"><i class="fas fa-tools"></i> Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-item">Strategic Planning</div>
-                <div class="skill-item">Project Management</div>
-                <div class="skill-item">Team Leadership</div>
-                <div class="skill-item">UAV Operations</div>
-                <div class="skill-item">Systems Engineering</div>
-                <div class="skill-item">Risk Management</div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title"><i class="fas fa-project-diagram"></i> Key Projects</h2>
+            </section>
             
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Mahakumbh 2025</div>
-                    <div class="card-date">01/2025 - 02/2025</div>
+            <section class="section animate">
+                <h2 class="section-title"><i class="fas fa-project-diagram"></i> Key Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-title">Mahakumbh 2025</div>
+                        <div class="item-date">01/2025 - 02/2025</div>
+                        <ul>
+                            <li>Event security with tethered drone technology</li>
+                            <li>Managed team of 14 for continuous surveillance</li>
+                            <li>Collaborated with SSP, IG, DIG, DCP, NSG, NDRF, SDRF</li>
+                            <li>Analyzed drone data for security threat identification</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">Army Trials</div>
+                        <div class="item-date">04/2024 - 08/2024</div>
+                        <ul>
+                            <li>Led team through intensive army trials</li>
+                            <li>Executed detailed trial plans with diverse teams</li>
+                            <li>Critical problem-solving in high-stakes scenarios</li>
+                            <li>Exceptional leadership and crisis management</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-title">UP Security Police</div>
+                        <div class="item-date">09/2024 - 11/2024</div>
+                        <ul>
+                            <li>Surveillance and crowd management product</li>
+                            <li>AI-based number plate recognition</li>
+                            <li>Advanced face recognition technology</li>
+                        </ul>
+                    </div>
                 </div>
-                <ul>
-                    <li>Ensured event security using advanced tethered drone technology</li>
-                    <li>Managed a team of 14 for continuous operation and surveillance</li>
-                    <li>Implemented detailed plans to optimize efficiency and security</li>
-                    <li>Collaborated with high-level officers including SSP, IG, DIG, and DCP, as well as teams from NSG, NDRF, and SDRF</li>
-                    <li>Analyzed drone data to identify and address security threats</li>
-                </ul>
-            </div>
+            </section>
             
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Eastern/Northern Command Army Trials</div>
-                    <div class="card-date">04/2024 - 08/2024</div>
+            <section class="section animate">
+                <h2 class="section-title"><i class="fas fa-trophy"></i> Achievement</h2>
+                <div class="achievement-card">
+                    <h4><i class="fas fa-award"></i> Best Team Leader</h4>
+                    <div style="font-size: 0.9em; margin-top: 5px;">
+                        Given by Director of LCIT College as Founder of YAN Innovators - Local societies-based team working on problem statements (2020)
+                    </div>
                 </div>
-                <ul>
-                    <li>Led and managed a team through multiple intensive and high-value army trials</li>
-                    <li>Developed and executed detailed trial plans, coordinating with diverse teams to achieve objectives</li>
-                    <li>Demonstrated critical problem-solving skills and proactive decision-making during high-stakes scenarios</li>
-                    <li>Demonstrated exceptional leadership and crisis management during critical phases of the trials</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Uttar Pradesh Security Police Project</div>
-                    <div class="card-date">09/2024 - 11/2024</div>
-                </div>
-                <ul>
-                    <li>Developed product for UP security police for surveillance and crowd management</li>
-                    <li>Delivered advanced AI-based number plate & face recognition technology</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title"><i class="fas fa-trophy"></i> Achievements</h2>
-            <div class="card">
-                <div class="card-title">Best Team Leader</div>
-                <div class="card-date">06/2020</div>
-                <p>Given by Director of LCIT College as Founder of YAN Innovators (Local societies-based team working on problem statements)</p>
-                <span class="achievement-badge">🏆 Leadership Award</span>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title"><i class="fas fa-certificate"></i> Certificates</h2>
-            <div class="card">
-                <div class="card-title">AMCAT Test</div>
-                <div class="card-date">11/2020 - Present</div>
-                <p>Quantitative Ability (Advanced) 625/900 (87%)</p>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title"><i class="fas fa-language"></i> Languages</h2>
-            <div class="card">
-                <ul>
-                    <li><strong>Hindi</strong> - Full Professional Proficiency</li>
-                    <li><strong>English</strong> - Professional Working Proficiency</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2 class="section-title"><i class="fas fa-heart"></i> Interests</h2>
-            <div class="interests-grid">
-                <div class="interest-tag">🚁 U.A.V.</div>
-                <div class="interest-tag">🔧 Arduino</div>
-                <div class="interest-tag">💡 IOT</div>
-                <div class="interest-tag">📱 Tech Gadgets</div>
-                <div class="interest-tag">✈️ Drone Piloting</div>
-            </div>
-        </div>
+            </section>
+        </main>
     </div>
     
     <script>
         function toggleTheme() {
             const body = document.body;
-            const themeIcon = document.querySelector('.theme-toggle i');
+            const icon = document.querySelector('.controls .btn i');
             
             if (body.classList.contains('light-mode')) {
-                body.classList.remove('light-mode');
-                body.classList.add('dark-mode');
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
+                body.classList.replace('light-mode', 'dark-mode');
+                icon.classList.replace('fa-moon', 'fa-sun');
                 localStorage.setItem('theme', 'dark');
             } else {
-                body.classList.remove('dark-mode');
-                body.classList.add('light-mode');
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
+                body.classList.replace('dark-mode', 'light-mode');
+                icon.classList.replace('fa-sun', 'fa-moon');
                 localStorage.setItem('theme', 'light');
             }
         }
         
-        // Load saved theme
+        // Load theme
         window.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            const body = document.body;
-            const themeIcon = document.querySelector('.theme-toggle i');
+            const theme = localStorage.getItem('theme') || 'light';
+            const icon = document.querySelector('.controls .btn i');
             
-            if (savedTheme === 'dark') {
-                body.classList.remove('light-mode');
-                body.classList.add('dark-mode');
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
+            if (theme === 'dark') {
+                document.body.classList.replace('light-mode', 'dark-mode');
+                icon.classList.replace('fa-moon', 'fa-sun');
             }
+            
+            // Animate progress bars
+            setTimeout(() => {
+                document.querySelectorAll('.progress-fill').forEach(bar => {
+                    bar.style.width = bar.style.width;
+                });
+            }, 300);
         });
         
-        // Scroll to top functionality
-        const scrollTopBtn = document.querySelector('.scroll-top');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                scrollTopBtn.classList.add('visible');
-            } else {
-                scrollTopBtn.classList.remove('visible');
-            }
-        });
-        
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-        
-        // Animate elements on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
+        // Scroll animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -721,9 +755,9 @@
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
         
-        document.querySelectorAll('.card, .section').forEach(el => {
+        document.querySelectorAll('.animate').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'all 0.6s ease';
