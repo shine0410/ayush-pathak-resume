@@ -144,7 +144,7 @@
             bottom: 20px;
             right: 20px;
             z-index: 1000;
-            background: rgba(10, 14, 39, 0.8);
+            background: rgba(10, 14, 39, 0.9);
             backdrop-filter: blur(20px);
             padding: 15px 20px;
             border-radius: 15px;
@@ -163,7 +163,7 @@
         }
         
         body.light-mode .visitor-counter {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border: 1px solid rgba(0, 102, 255, 0.3);
         }
         
@@ -200,11 +200,21 @@
         }
         
         .visitor-count {
-            font-size: 1.4em;
+            font-size: 1.5em;
             font-weight: 700;
             color: var(--primary);
             font-family: 'Courier New', monospace;
             letter-spacing: 2px;
+        }
+        
+        .count-animation {
+            display: inline-block;
+            animation: countUp 0.5s ease-out;
+        }
+        
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .container {
@@ -812,9 +822,7 @@
         </div>
         <div class="visitor-info">
             <div class="visitor-label">Visitors</div>
-            <div class="visitor-count" id="visitor-count">
-                <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fshine0410.github.io%2Fayush-pathak-resume&count_bg=%2300D4FF&title_bg=%230A0E27&icon=&icon_color=%2300D4FF&title=Views&edge_flat=false" alt="Visitor Count" style="height: 20px; vertical-align: middle;">
-            </div>
+            <div class="visitor-count count-animation" id="visitor-count">0</div>
         </div>
     </div>
     
@@ -1087,6 +1095,43 @@
         
         createParticles();
         
+        // Visitor Counter with LocalStorage
+        function updateVisitorCount() {
+            const countElement = document.getElementById('visitor-count');
+            const storageKey = 'ayush-resume-visits';
+            
+            // Get current count from localStorage
+            let visits = parseInt(localStorage.getItem(storageKey) || '0');
+            
+            // Check if this is a new session
+            const lastVisit = localStorage.getItem(storageKey + '-time');
+            const now = new Date().getTime();
+            const oneHour = 60 * 60 * 1000;
+            
+            // Increment if new session or more than 1 hour passed
+            if (!lastVisit || (now - parseInt(lastVisit)) > oneHour) {
+                visits++;
+                localStorage.setItem(storageKey, visits.toString());
+                localStorage.setItem(storageKey + '-time', now.toString());
+            }
+            
+            // Animate count
+            let current = 0;
+            const target = visits;
+            const duration = 1000;
+            const increment = target / (duration / 16);
+            
+            const counter = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    countElement.textContent = target.toString().padStart(4, '0');
+                    clearInterval(counter);
+                } else {
+                    countElement.textContent = Math.floor(current).toString().padStart(4, '0');
+                }
+            }, 16);
+        }
+        
         function toggleTheme() {
             const body = document.body;
             const icon = document.querySelector('.controls .btn i');
@@ -1111,6 +1156,9 @@
                 document.body.classList.replace('dark-mode', 'light-mode');
                 icon.classList.replace('fa-sun', 'fa-moon');
             }
+            
+            // Update visitor count
+            updateVisitorCount();
             
             // Animate progress bars
             setTimeout(() => {
