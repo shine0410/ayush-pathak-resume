@@ -138,6 +138,75 @@
             box-shadow: 0 0 30px rgba(0, 212, 255, 0.8);
         }
         
+        /* Visitor Counter */
+        .visitor-counter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 15px 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .visitor-counter:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.5);
+            border-color: var(--primary);
+        }
+        
+        body.light-mode .visitor-counter {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 102, 255, 0.3);
+        }
+        
+        .visitor-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(0, 212, 255, 0); }
+        }
+        
+        .visitor-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .visitor-label {
+            font-size: 0.75em;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .visitor-count {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+        }
+        
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -684,10 +753,26 @@
                 top: 10px;
                 right: 10px;
             }
+            
+            .visitor-counter {
+                bottom: 10px;
+                right: 10px;
+                padding: 12px 15px;
+            }
+            
+            .visitor-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1em;
+            }
+            
+            .visitor-count {
+                font-size: 1.2em;
+            }
         }
         
         @media print {
-            .controls, .bg-animation, .grid-overlay, .drone-particles { display: none; }
+            .controls, .bg-animation, .grid-overlay, .drone-particles, .visitor-counter { display: none; }
             .container { grid-template-columns: 280px 1fr; gap: 15px; }
             body { background: white !important; color: black !important; }
             .timeline-item, .project-card { page-break-inside: avoid; }
@@ -718,6 +803,19 @@
         <button class="btn" onclick="window.print()" title="Download PDF">
             <i class="fas fa-download"></i>
         </button>
+    </div>
+    
+    <!-- Visitor Counter -->
+    <div class="visitor-counter">
+        <div class="visitor-icon">
+            <i class="fas fa-eye"></i>
+        </div>
+        <div class="visitor-info">
+            <div class="visitor-label">Visitors</div>
+            <div class="visitor-count" id="visitor-count">
+                <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fshine0410.github.io%2Fayush-pathak-resume&count_bg=%2300D4FF&title_bg=%230A0E27&icon=&icon_color=%2300D4FF&title=Views&edge_flat=false" alt="Visitor Count" style="height: 20px; vertical-align: middle;">
+            </div>
+        </div>
     </div>
     
     <div class="container">
