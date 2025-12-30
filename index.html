@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ayush Pathak - UAV Operations Manager</title>
+    <title>Ayush Pathak - UAV Operations Manager | GalaxEye Space</title>
+    <meta name="description" content="UAV Operations Manager at GalaxEye Space working on Mission Drishti - World's first multi-sensor Earth Observation satellite">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -208,7 +209,6 @@
             min-width: 80px;
         }
         
-        /* Style the visitor badge image */
         .visitor-count img {
             height: 24px;
             filter: brightness(1.2) contrast(1.1) drop-shadow(0 0 8px rgba(0, 212, 255, 0.6));
@@ -498,12 +498,99 @@
         }
         
         .summary::before {
-            content: '🚁';
+            content: '🛰️';
             position: absolute;
             right: 20px;
             top: 20px;
             font-size: 3em;
             opacity: 0.1;
+        }
+        
+        /* Drishti Mission Highlight */
+        .mission-highlight {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(0, 255, 170, 0.15));
+            backdrop-filter: blur(20px);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 2px solid rgba(0, 212, 255, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mission-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+            animation: slideShine 3s infinite;
+        }
+        
+        @keyframes slideShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .mission-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .mission-subtitle {
+            font-size: 0.95em;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .mission-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .spec-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .spec-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+        }
+        
+        .spec-label {
+            font-size: 0.75em;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 3px;
+        }
+        
+        .spec-value {
+            font-size: 1em;
+            font-weight: 700;
+            color: var(--primary);
         }
         
         .section {
@@ -782,6 +869,10 @@
             .visitor-count {
                 font-size: 1.2em;
             }
+            
+            .mission-specs {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media print {
@@ -842,7 +933,7 @@
                         <img src="https://ui-avatars.com/api/?name=Ayush+Pathak&size=120&background=0a0e27&color=00d4ff&bold=true&font-size=0.4" alt="Ayush Pathak" class="profile-img">
                     </div>
                     <h1>Ayush Pathak</h1>
-                    <div class="role"><i class="fas fa-helicopter drone-icon"></i> UAV Operations Manager</div>
+                    <div class="role"><i class="fas fa-satellite drone-icon"></i> UAV Operations Manager</div>
                     
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
@@ -927,11 +1018,11 @@
             <div class="sidebar-section">
                 <h3><i class="fas fa-rocket"></i> Interests</h3>
                 <div class="interest-tags">
+                    <div class="tag">🛰️ Satellites</div>
                     <div class="tag">🚁 UAV</div>
                     <div class="tag">🔧 Arduino</div>
                     <div class="tag">💡 IoT</div>
-                    <div class="tag">📱 Tech</div>
-                    <div class="tag">✈️ Drones</div>
+                    <div class="tag">📡 SAR</div>
                 </div>
             </div>
             
@@ -949,7 +1040,47 @@
         <main class="main-content">
             <div class="summary reveal">
                 <strong style="color: var(--primary); font-size: 1.1em;">Mission Statement</strong><br><br>
-                Results-driven UAV Operations Manager at GalaxEye with expertise in systems engineering and project management. I optimize operations and advance UAV systems through strategic planning and cross-functional collaboration. BTech graduate in Computer Science from LCIT with proven experience at AERIAL IQ, where I spearheaded UAV system development including tethered drones and high-altitude operations.
+                UAV Operations Manager at GalaxEye Space, contributing to Mission Drishti - the world's first commercial multi-sensor Earth Observation satellite. Expertise in systems engineering, project management, and UAV operations. I optimize aerial operations and advance satellite-UAV integration through strategic planning and cross-functional collaboration. BTech graduate in Computer Science from LCIT with proven experience at AERIAL IQ in UAV system development, tethered drones, and high-altitude operations.
+            </div>
+            
+            <!-- Drishti Mission Highlight -->
+            <div class="mission-highlight reveal">
+                <div class="mission-title">
+                    <i class="fas fa-satellite"></i>
+                    Mission Drishti
+                </div>
+                <div class="mission-subtitle">
+                    World's First Multi-Sensor Earth Observation Satellite
+                </div>
+                <p style="font-size: 0.9em; line-height: 1.6; margin-bottom: 15px; position: relative; z-index: 1;">
+                    Contributing to GalaxEye's groundbreaking Mission Drishti - integrating Synthetic Aperture Radar (SAR) and Multispectral Imaging (MSI) on a single platform for all-weather, day-and-night Earth observation at 1.5m resolution.
+                </p>
+                <div class="mission-specs">
+                    <div class="spec-item">
+                        <div class="spec-label">Satellite Mass</div>
+                        <div class="spec-value">160 kg</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Resolution</div>
+                        <div class="spec-value">1.5 meters</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Technology</div>
+                        <div class="spec-value">SAR + MSI Fusion</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Launch Target</div>
+                        <div class="spec-value">Q1 2026</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Spectral Bands</div>
+                        <div class="spec-value">7-Band MSI</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-label">Applications</div>
+                        <div class="spec-value">Defense & Agriculture</div>
+                    </div>
+                </div>
             </div>
             
             <section class="section reveal">
@@ -963,11 +1094,12 @@
                             </div>
                             <div class="item-date">04/2025 - Present</div>
                         </div>
-                        <div class="item-desc">Space startup offering satellite-based surveillance imagery</div>
+                        <div class="item-desc">Space startup developing Mission Drishti - World's first multi-sensor EO satellite</div>
                         <ul>
-                            <li>Primary liaison between teams and stakeholders for mission objectives</li>
+                            <li>Contributing to Mission Drishti satellite operations and UAV integration</li>
                             <li>Led remote sensing project for Agriculture Dept IIRS-ISRO</li>
-                            <li>Managed drone pilots team, developed SOPs and safety protocols</li>
+                            <li>Managed drone pilots team for satellite ground truth validation</li>
+                            <li>Developed SOPs for UAV-satellite data fusion workflows</li>
                             <li>Oversaw mission-level risk management and aviation compliance</li>
                         </ul>
                     </div>
