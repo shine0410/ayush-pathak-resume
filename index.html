@@ -107,7 +107,7 @@
             100% { transform: rotate(-360deg); }
         }
         
-        /* REAL Photorealistic Satellite Orbiting Earth */
+        /* 3D REALISTIC Satellite Orbiting Earth */
         .satellite-orbit {
             position: absolute;
             bottom: -50%;
@@ -129,14 +129,220 @@
             transform: translateX(-50%);
             width: 200px;
             height: 200px;
-            filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.5));
+            filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.6));
         }
         
-        .drishti-satellite img {
+        /* 3D Satellite Construction */
+        .satellite-3d {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            filter: brightness(1.2) contrast(1.15);
+            position: relative;
+            transform-style: preserve-3d;
+            animation: satelliteFloat 4s ease-in-out infinite;
+        }
+        
+        @keyframes satelliteFloat {
+            0%, 100% { transform: translateY(0px) rotateY(0deg); }
+            50% { transform: translateY(-10px) rotateY(5deg); }
+        }
+        
+        /* Main Satellite Body */
+        .sat-body {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 80px;
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 50%, #1a202c 100%);
+            border-radius: 8px;
+            box-shadow: 
+                inset -5px -5px 15px rgba(0, 0, 0, 0.5),
+                inset 5px 5px 15px rgba(255, 255, 255, 0.1),
+                0 0 30px rgba(0, 212, 255, 0.3);
+        }
+        
+        /* Left Solar Panel */
+        .solar-left {
+            position: absolute;
+            top: 50%;
+            right: 70px;
+            transform: translateY(-50%);
+            width: 80px;
+            height: 100px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%);
+            border: 2px solid #00d4ff;
+            border-radius: 4px;
+            box-shadow: 
+                inset 0 0 20px rgba(0, 212, 255, 0.3),
+                0 0 20px rgba(0, 212, 255, 0.4);
+        }
+        
+        /* Solar panel grid lines */
+        .solar-left::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(0deg, transparent, transparent 18px, rgba(0, 212, 255, 0.3) 18px, rgba(0, 212, 255, 0.3) 20px),
+                repeating-linear-gradient(90deg, transparent, transparent 18px, rgba(0, 212, 255, 0.3) 18px, rgba(0, 212, 255, 0.3) 20px);
+        }
+        
+        /* Right Solar Panel */
+        .solar-right {
+            position: absolute;
+            top: 50%;
+            left: 70px;
+            transform: translateY(-50%);
+            width: 80px;
+            height: 100px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%);
+            border: 2px solid #00d4ff;
+            border-radius: 4px;
+            box-shadow: 
+                inset 0 0 20px rgba(0, 212, 255, 0.3),
+                0 0 20px rgba(0, 212, 255, 0.4);
+        }
+        
+        .solar-right::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(0deg, transparent, transparent 18px, rgba(0, 212, 255, 0.3) 18px, rgba(0, 212, 255, 0.3) 20px),
+                repeating-linear-gradient(90deg, transparent, transparent 18px, rgba(0, 212, 255, 0.3) 18px, rgba(0, 212, 255, 0.3) 20px);
+        }
+        
+        /* SAR Antenna Dish */
+        .sar-antenna {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #4a5568 0%, #2d3748 70%, #1a202c 100%);
+            border-radius: 50%;
+            border: 3px solid #00d4ff;
+            box-shadow: 
+                inset -3px -3px 10px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(0, 212, 255, 0.5);
+        }
+        
+        .sar-antenna::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, #00d4ff 0%, transparent 70%);
+            border-radius: 50%;
+            animation: radarPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes radarPulse {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+        }
+        
+        /* MSI Camera */
+        .msi-camera {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 30px;
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            border-radius: 6px;
+            border: 2px solid #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+        
+        .msi-camera::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(circle, #0088ff 0%, #0066cc 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #0088ff;
+            animation: cameraGlow 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes cameraGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; box-shadow: 0 0 20px #0088ff; }
+        }
+        
+        /* Communications Antenna */
+        .comm-antenna {
+            position: absolute;
+            top: 30px;
+            right: 10px;
+            width: 3px;
+            height: 25px;
+            background: linear-gradient(180deg, #00d4ff 0%, #4a5568 100%);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        
+        .comm-antenna::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: #00d4ff;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #00d4ff;
+            animation: signalBlink 1s ease-in-out infinite;
+        }
+        
+        @keyframes signalBlink {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        /* Status Lights */
+        .status-light {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: statusBlink 1s ease-in-out infinite;
+        }
+        
+        .status-light.red {
+            top: 35px;
+            left: 15px;
+            background: #ff4444;
+            box-shadow: 0 0 8px #ff4444;
+        }
+        
+        .status-light.green {
+            top: 35px;
+            right: 15px;
+            background: #00ff00;
+            box-shadow: 0 0 8px #00ff00;
+            animation-delay: 0.5s;
+        }
+        
+        @keyframes statusBlink {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
         
         /* Orbit path */
@@ -1018,7 +1224,7 @@
     </style>
 </head>
 <body class="dark-mode">
-    <!-- Space Background with REAL-LIFE Earth and Proper Satellite -->
+    <!-- Space Background with REAL Earth and 3D Satellite -->
     <div class="space-background">
         <div class="stars" id="stars"></div>
         <div class="atmosphere"></div>
@@ -1026,8 +1232,30 @@
         <div class="satellite-orbit">
             <div class="orbit-path"></div>
             <div class="drishti-satellite">
-                <!-- REAL Satellite with Solar Panels (Hubble/ISS style) -->
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/HST-SM4.jpeg/800px-HST-SM4.jpeg" alt="Satellite" onerror="this.src='https://cdn.pixabay.com/photo/2011/12/14/12/17/space-station-11050_1280.jpg'">
+                <!-- 3D Realistic Satellite Construction -->
+                <div class="satellite-3d">
+                    <!-- SAR Antenna Dish -->
+                    <div class="sar-antenna"></div>
+                    
+                    <!-- Left Solar Panel -->
+                    <div class="solar-left"></div>
+                    
+                    <!-- Main Satellite Body -->
+                    <div class="sat-body">
+                        <!-- Status Lights -->
+                        <div class="status-light red"></div>
+                        <div class="status-light green"></div>
+                        
+                        <!-- Communications Antenna -->
+                        <div class="comm-antenna"></div>
+                    </div>
+                    
+                    <!-- Right Solar Panel -->
+                    <div class="solar-right"></div>
+                    
+                    <!-- MSI Camera -->
+                    <div class="msi-camera"></div>
+                </div>
             </div>
         </div>
     </div>
