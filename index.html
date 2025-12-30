@@ -33,71 +33,86 @@
             overflow-x: hidden;
         }
         
-        /* Satellite Loading Screen */
-        .satellite-loader {
+        /* Orbiting Satellite Animation */
+        .satellite-orbit-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a0a2e 100%);
             z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 0.8s ease;
         }
         
-        .satellite-loader.hidden {
+        .satellite-orbit-container.hidden {
             opacity: 0;
-            visibility: hidden;
+            pointer-events: none;
         }
         
-        .satellite-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        /* Satellite Body */
-        .satellite {
+        /* Orbit path visualization */
+        .orbit-path {
             position: absolute;
             top: 50%;
             left: 50%;
+            width: 140%;
+            height: 140%;
             transform: translate(-50%, -50%);
-            width: 80px;
-            height: 100px;
-            background: linear-gradient(135deg, #2a2a4a, #1a1a3a);
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-            animation: satelliteRotate 4s ease-in-out infinite;
+            border: 2px dashed rgba(0, 212, 255, 0.3);
+            border-radius: 50%;
+            animation: rotateOrbitPath 4s linear infinite;
         }
         
-        @keyframes satelliteRotate {
-            0%, 100% { transform: translate(-50%, -50%) rotateY(0deg); }
-            50% { transform: translate(-50%, -50%) rotateY(15deg); }
+        @keyframes rotateOrbitPath {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
         
-        /* Solar Panels */
-        .solar-panel {
+        /* Satellite orbiting around the page */
+        .orbiting-satellite {
             position: absolute;
             top: 50%;
+            left: 50%;
+            width: 80px;
+            height: 100px;
+            animation: orbitAround 4s linear infinite;
+            transform-origin: 0 0;
+        }
+        
+        @keyframes orbitAround {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) translateX(70vw) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg) translateX(70vw) rotate(-360deg);
+            }
+        }
+        
+        /* Satellite body */
+        .sat-body {
+            position: relative;
             width: 60px;
             height: 80px;
+            background: linear-gradient(135deg, #2a2a4a, #1a1a3a);
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            margin: 0 auto;
+        }
+        
+        /* Solar panels */
+        .sat-panel {
+            position: absolute;
+            top: 50%;
+            width: 45px;
+            height: 60px;
             background: linear-gradient(90deg, #1a4d6d 0%, #0d2636 50%, #1a4d6d 100%);
             border: 2px solid var(--primary);
             transform: translateY(-50%);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
         
-        .solar-panel::before {
+        .sat-panel::before {
             content: '';
             position: absolute;
             top: 0;
@@ -107,103 +122,61 @@
             background: repeating-linear-gradient(
                 0deg,
                 transparent,
-                transparent 8px,
-                rgba(0, 212, 255, 0.1) 8px,
-                rgba(0, 212, 255, 0.1) 10px
+                transparent 6px,
+                rgba(0, 212, 255, 0.2) 6px,
+                rgba(0, 212, 255, 0.2) 8px
             );
         }
         
-        .solar-panel.left {
+        .sat-panel.left {
             right: 100%;
-            margin-right: 5px;
-            animation: panelGlow 2s ease-in-out infinite;
+            margin-right: 3px;
         }
         
-        .solar-panel.right {
+        .sat-panel.right {
             left: 100%;
-            margin-left: 5px;
-            animation: panelGlow 2s ease-in-out infinite 1s;
-        }
-        
-        @keyframes panelGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.4); }
-            50% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.8); }
+            margin-left: 3px;
         }
         
         /* Antenna */
-        .antenna {
+        .sat-antenna {
             position: absolute;
-            top: -30px;
+            top: -20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 3px;
-            height: 30px;
+            width: 2px;
+            height: 20px;
             background: linear-gradient(180deg, var(--primary), transparent);
         }
         
-        .antenna::after {
+        .sat-antenna::after {
             content: '';
             position: absolute;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 15px;
-            height: 15px;
+            width: 10px;
+            height: 10px;
             background: var(--primary);
             border-radius: 50%;
-            box-shadow: 0 0 20px var(--primary);
-            animation: signalPulse 1.5s ease-in-out infinite;
+            box-shadow: 0 0 15px var(--primary);
+            animation: antennaPulse 1s ease-in-out infinite;
         }
         
-        @keyframes signalPulse {
-            0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
-            50% { transform: translateX(-50%) scale(1.3); opacity: 0.7; }
+        @keyframes antennaPulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.3); }
         }
         
-        /* Signal Waves */
-        .signal-wave {
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 60px;
-            border: 2px solid var(--primary);
-            border-radius: 50%;
-            opacity: 0;
-            animation: signalExpand 2s ease-out infinite;
-        }
-        
-        .signal-wave:nth-child(2) {
-            animation-delay: 0.5s;
-        }
-        
-        .signal-wave:nth-child(3) {
-            animation-delay: 1s;
-        }
-        
-        @keyframes signalExpand {
-            0% {
-                width: 20px;
-                height: 20px;
-                opacity: 1;
-            }
-            100% {
-                width: 100px;
-                height: 100px;
-                opacity: 0;
-            }
-        }
-        
-        /* Satellite Details */
+        /* Satellite lights */
         .sat-light {
             position: absolute;
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: #ff4444;
             border-radius: 50%;
-            top: 20px;
-            right: 10px;
+            top: 15px;
+            right: 8px;
             animation: blink 1s ease-in-out infinite;
         }
         
@@ -212,49 +185,76 @@
             50% { opacity: 0.3; }
         }
         
-        /* Earth in Background */
-        .earth {
+        /* Signal waves from satellite */
+        .sat-signal {
             position: absolute;
-            bottom: -100px;
-            right: -100px;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle at 30% 30%, #4a90e2, #2c5aa0, #1a3a6e);
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--primary);
             border-radius: 50%;
-            opacity: 0.3;
-            animation: earthRotate 20s linear infinite;
+            opacity: 0;
+            animation: signalWave 2s ease-out infinite;
         }
         
-        @keyframes earthRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .sat-signal:nth-child(2) {
+            animation-delay: 0.7s;
         }
         
-        /* Stars */
-        .stars {
+        @keyframes signalWave {
+            0% {
+                width: 15px;
+                height: 15px;
+                opacity: 1;
+            }
+            100% {
+                width: 60px;
+                height: 60px;
+                opacity: 0;
+            }
+        }
+        
+        /* Mission Drishti label following satellite */
+        .sat-label {
             position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 212, 255, 0.9);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+            letter-spacing: 1px;
+        }
+        
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            background: rgba(5, 8, 20, 0.95);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.8s ease;
         }
         
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 3s ease-in-out infinite;
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
         
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-        
-        /* Loading Text */
         .loading-text {
-            margin-top: 50px;
             font-size: 1.5em;
             font-weight: 700;
             color: var(--primary);
@@ -262,7 +262,7 @@
             animation: textPulse 2s ease-in-out infinite;
         }
         
-        .mission-name {
+        .loading-subtext {
             font-size: 0.9em;
             color: var(--accent);
             margin-top: 10px;
@@ -272,28 +272,6 @@
         @keyframes textPulse {
             0%, 100% { opacity: 0.7; }
             50% { opacity: 1; }
-        }
-        
-        .loading-progress {
-            width: 300px;
-            height: 4px;
-            background: rgba(0, 212, 255, 0.2);
-            border-radius: 10px;
-            margin-top: 30px;
-            overflow: hidden;
-        }
-        
-        .loading-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 10px;
-            animation: loadProgress 3s ease-in-out forwards;
-            box-shadow: 0 0 10px var(--primary);
-        }
-        
-        @keyframes loadProgress {
-            0% { width: 0%; }
-            100% { width: 100%; }
         }
         
         /* Animated Background */
@@ -347,7 +325,7 @@
             height: 2px;
             background: var(--primary);
             border-radius: 50%;
-            animation: float 15s infinite;
+            animation: floatParticle 15s infinite;
             opacity: 0.4;
         }
         
@@ -1094,10 +1072,10 @@
         /* Drone Icon Animation */
         .drone-icon {
             display: inline-block;
-            animation: hover 2s ease-in-out infinite;
+            animation: hoverIcon 2s ease-in-out infinite;
         }
         
-        @keyframes hover {
+        @keyframes hoverIcon {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
         }
@@ -1137,24 +1115,18 @@
                 grid-template-columns: 1fr;
             }
             
-            .satellite-container {
-                width: 200px;
-                height: 200px;
-            }
-            
-            .satellite {
-                width: 60px;
-                height: 80px;
-            }
-            
-            .solar-panel {
-                width: 45px;
-                height: 60px;
+            @keyframes orbitAround {
+                0% {
+                    transform: translate(-50%, -50%) rotate(0deg) translateX(50vw) rotate(0deg);
+                }
+                100% {
+                    transform: translate(-50%, -50%) rotate(360deg) translateX(50vw) rotate(-360deg);
+                }
             }
         }
         
         @media print {
-            .controls, .bg-animation, .grid-overlay, .drone-particles, .visitor-counter, .satellite-loader { display: none; }
+            .controls, .bg-animation, .grid-overlay, .drone-particles, .visitor-counter, .satellite-orbit-container, .loading-overlay { display: none; }
             .container { grid-template-columns: 280px 1fr; gap: 15px; }
             body { background: white !important; color: black !important; }
             .timeline-item, .project-card { page-break-inside: avoid; }
@@ -1174,31 +1146,27 @@
     </style>
 </head>
 <body class="dark-mode">
-    <!-- Satellite Loading Screen -->
-    <div class="satellite-loader" id="satelliteLoader">
-        <div class="stars" id="starsContainer"></div>
-        <div class="earth"></div>
-        
-        <div class="satellite-container">
-            <div class="signal-wave"></div>
-            <div class="signal-wave"></div>
-            <div class="signal-wave"></div>
-            
-            <div class="satellite">
-                <div class="antenna"></div>
-                <div class="solar-panel left"></div>
-                <div class="solar-panel right"></div>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div>
+            <div class="loading-text">Initializing Mission Drishti</div>
+            <div class="loading-subtext">GALAXEYE SPACE</div>
+        </div>
+    </div>
+    
+    <!-- Orbiting Satellite -->
+    <div class="satellite-orbit-container" id="satelliteOrbit">
+        <div class="orbit-path"></div>
+        <div class="orbiting-satellite">
+            <div class="sat-label">DRISHTI</div>
+            <div class="sat-signal"></div>
+            <div class="sat-signal"></div>
+            <div class="sat-body">
+                <div class="sat-antenna"></div>
+                <div class="sat-panel left"></div>
+                <div class="sat-panel right"></div>
                 <div class="sat-light"></div>
             </div>
-        </div>
-        
-        <div class="loading-text">
-            <div>Initializing Mission Drishti</div>
-            <div class="mission-name">GALAXEYE SPACE</div>
-        </div>
-        
-        <div class="loading-progress">
-            <div class="loading-bar"></div>
         </div>
     </div>
     
@@ -1522,19 +1490,6 @@
     </div>
     
     <script>
-        // Create stars for loading screen
-        function createStars() {
-            const container = document.getElementById('starsContainer');
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                container.appendChild(star);
-            }
-        }
-        
         // Create floating particles
         function createParticles() {
             const container = document.getElementById('particles');
@@ -1549,15 +1504,14 @@
             }
         }
         
-        // Hide satellite loader after animation
+        createParticles();
+        
+        // Hide satellite and overlay after orbit completes
         window.addEventListener('load', () => {
-            createStars();
-            createParticles();
-            
             setTimeout(() => {
-                const loader = document.getElementById('satelliteLoader');
-                loader.classList.add('hidden');
-            }, 3500); // 3.5 seconds to match loading bar animation
+                document.getElementById('loadingOverlay').classList.add('hidden');
+                document.getElementById('satelliteOrbit').classList.add('hidden');
+            }, 4000); // 4 seconds - one complete orbit
         });
         
         function toggleTheme() {
@@ -1585,13 +1539,13 @@
                 icon.classList.replace('fa-sun', 'fa-moon');
             }
             
-            // Animate progress bars
+            // Animate progress bars after loading
             setTimeout(() => {
                 document.querySelectorAll('.progress-fill').forEach(bar => {
                     const width = bar.getAttribute('data-width');
                     bar.style.width = width + '%';
                 });
-            }, 4000); // Start after loading screen
+            }, 4500);
         });
         
         // Scroll reveal animation
@@ -1610,8 +1564,8 @@
         
         window.addEventListener('scroll', revealOnScroll);
         setTimeout(() => {
-            revealOnScroll(); // Initial check after loading
-        }, 3500);
+            revealOnScroll();
+        }, 4000);
     </script>
 </body>
 </html>
