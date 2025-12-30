@@ -33,7 +33,7 @@
             overflow-x: hidden;
         }
         
-        /* Realistic Earth and Satellite Background */
+        /* REAL-LIFE Earth and Satellite Background */
         .space-background {
             position: fixed;
             top: 0;
@@ -44,7 +44,7 @@
             overflow: hidden;
         }
         
-        /* REALISTIC EARTH */
+        /* REAL EARTH IMAGE */
         .earth {
             position: absolute;
             bottom: -50%;
@@ -52,44 +52,19 @@
             width: 1000px;
             height: 1000px;
             border-radius: 50%;
-            background: 
-                radial-gradient(circle at 35% 35%, #4a90c8 0%, #2a70a8 20%, #1a5088 40%, #0a3068 60%, #051a38 100%);
+            background-image: url('https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57752/land_shallow_topo_2048.jpg');
+            background-size: cover;
+            background-position: center;
             box-shadow: 
                 inset -80px -80px 150px rgba(0, 0, 0, 0.7),
                 0 0 200px rgba(100, 180, 255, 0.4),
                 0 0 100px rgba(70, 150, 220, 0.3);
             animation: earthRotate 120s linear infinite;
-            opacity: 0.9;
+            opacity: 0.95;
             overflow: hidden;
         }
         
-        /* Continents/Land masses */
-        .earth::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: 
-                /* Africa/Europe region */
-                radial-gradient(ellipse 180px 220px at 45% 40%, rgba(80, 120, 60, 0.8) 0%, transparent 50%),
-                radial-gradient(ellipse 120px 150px at 50% 35%, rgba(100, 140, 80, 0.7) 0%, transparent 50%),
-                /* Asia region */
-                radial-gradient(ellipse 200px 180px at 65% 45%, rgba(90, 130, 70, 0.75) 0%, transparent 50%),
-                /* Americas region */
-                radial-gradient(ellipse 140px 200px at 25% 50%, rgba(85, 125, 65, 0.7) 0%, transparent 50%),
-                radial-gradient(ellipse 100px 180px at 20% 60%, rgba(95, 135, 75, 0.65) 0%, transparent 50%),
-                /* Australia region */
-                radial-gradient(ellipse 80px 70px at 75% 65%, rgba(100, 140, 80, 0.7) 0%, transparent 50%),
-                /* Ice caps */
-                radial-gradient(circle 120px at 50% 10%, rgba(240, 250, 255, 0.9) 0%, transparent 60%),
-                radial-gradient(circle 150px at 50% 90%, rgba(240, 250, 255, 0.95) 0%, transparent 60%);
-            animation: earthLandRotate 120s linear infinite;
-        }
-        
-        /* Cloud layer */
+        /* Cloud layer overlay */
         .earth::after {
             content: '';
             position: absolute;
@@ -98,13 +73,10 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background: 
-                radial-gradient(ellipse 150px 100px at 30% 25%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
-                radial-gradient(ellipse 180px 120px at 55% 35%, rgba(255, 255, 255, 0.35) 0%, transparent 50%),
-                radial-gradient(ellipse 120px 80px at 70% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
-                radial-gradient(ellipse 140px 90px at 40% 60%, rgba(255, 255, 255, 0.38) 0%, transparent 50%),
-                radial-gradient(ellipse 100px 70px at 65% 70%, rgba(255, 255, 255, 0.32) 0%, transparent 50%),
-                radial-gradient(ellipse 160px 110px at 25% 45%, rgba(255, 255, 255, 0.36) 0%, transparent 50%);
+            background-image: url('https://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57747/cloud_combined_2048.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.4;
             animation: earthClouds 80s linear infinite;
         }
         
@@ -126,11 +98,6 @@
         }
         
         @keyframes earthRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes earthLandRotate {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
@@ -240,7 +207,7 @@
         
         body.light-mode .bg-animation { opacity: 0.08; }
         body.light-mode .grid-overlay { opacity: 0.02; }
-        body.light-mode .earth { opacity: 0.5; }
+        body.light-mode .earth { opacity: 0.6; }
         body.light-mode .atmosphere { opacity: 0.3; }
         
         .controls {
@@ -1044,7 +1011,7 @@
     </style>
 </head>
 <body class="dark-mode">
-    <!-- Space Background with REALISTIC Earth and Drishti Satellite -->
+    <!-- Space Background with REAL-LIFE Earth Image and Drishti Satellite -->
     <div class="space-background">
         <div class="stars" id="stars"></div>
         <div class="atmosphere"></div>
