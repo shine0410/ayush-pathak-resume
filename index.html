@@ -33,117 +33,112 @@
             overflow-x: hidden;
         }
         
-        /* Realistic Satellite Orbiting OVER Resume */
-        .satellite-orbit-container {
+        /* Earth and Satellite Background Animation */
+        .space-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 9999;
-            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
         }
         
-        .orbiting-satellite {
+        .earth {
+            position: absolute;
+            bottom: -40%;
+            right: -15%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #1a4d7d, #0a2d4d, #051a2d);
+            box-shadow: 
+                inset -40px -40px 80px rgba(0, 0, 0, 0.5),
+                0 0 100px rgba(0, 212, 255, 0.3);
+            animation: earthRotate 60s linear infinite;
+            opacity: 0.6;
+        }
+        
+        .earth::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: 
+                radial-gradient(circle at 20% 40%, rgba(0, 255, 170, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 60% 60%, rgba(0, 212, 255, 0.1) 0%, transparent 40%);
+            animation: earthClouds 40s linear infinite;
+        }
+        
+        @keyframes earthRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes earthClouds {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+        
+        /* Drishti Satellite Orbiting Earth */
+        .satellite-orbit {
+            position: absolute;
+            bottom: -40%;
+            right: -15%;
+            width: 800px;
+            height: 800px;
+            animation: satelliteOrbitEarth 20s linear infinite;
+        }
+        
+        @keyframes satelliteOrbitEarth {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .drishti-satellite {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.6));
+        }
+        
+        /* Orbit path */
+        .orbit-path {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 150px;
-            height: 150px;
-            animation: satelliteOrbit 8s ease-in-out infinite;
-            filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.6));
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border: 1px dashed rgba(0, 212, 255, 0.2);
+            border-radius: 50%;
         }
         
-        @keyframes satelliteOrbit {
-            0% {
-                transform: translate(-50%, -50%) translate(-45vw, -35vh) scale(0.6);
-                opacity: 0.4;
-                filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3)) blur(2px);
-            }
-            25% {
-                transform: translate(-50%, -50%) translate(0vw, -45vh) scale(0.9);
-                opacity: 0.8;
-                filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.6)) blur(0px);
-            }
-            50% {
-                transform: translate(-50%, -50%) translate(45vw, -35vh) scale(0.6);
-                opacity: 0.4;
-                filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3)) blur(2px);
-            }
-            75% {
-                transform: translate(-50%, -50%) translate(0vw, 45vh) scale(1.2);
-                opacity: 1;
-                filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.8)) blur(0px);
-            }
-            100% {
-                transform: translate(-50%, -50%) translate(-45vw, -35vh) scale(0.6);
-                opacity: 0.4;
-                filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3)) blur(2px);
-            }
-        }
-        
-        /* Realistic Satellite SVG */
-        .satellite-svg {
+        /* Stars */
+        .stars {
+            position: absolute;
             width: 100%;
             height: 100%;
         }
         
-        .sat-body-main {
-            fill: #2a3a5a;
-            stroke: var(--primary);
-            stroke-width: 2;
-        }
-        
-        .sat-panel-left, .sat-panel-right {
-            fill: url(#solarGradient);
-            stroke: var(--primary);
-            stroke-width: 2;
-            animation: panelGlow 3s ease-in-out infinite;
-        }
-        
-        @keyframes panelGlow {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
-        }
-        
-        .sat-antenna-main {
-            stroke: var(--primary);
-            stroke-width: 3;
-            fill: none;
-        }
-        
-        .sat-dish {
-            fill: #1a2a4a;
-            stroke: var(--primary);
-            stroke-width: 2;
-        }
-        
-        .sat-sensor {
-            fill: #00d4ff;
-            animation: sensorBlink 2s ease-in-out infinite;
-        }
-        
-        @keyframes sensorBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-        
-        /* Orbit trail */
-        .orbit-trail {
+        .star {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 90vw;
-            height: 80vh;
-            border: 2px dashed rgba(0, 212, 255, 0.2);
+            width: 2px;
+            height: 2px;
+            background: white;
             border-radius: 50%;
-            transform: translate(-50%, -50%);
-            animation: trailPulse 4s ease-in-out infinite;
+            animation: twinkle 3s ease-in-out infinite;
         }
         
-        @keyframes trailPulse {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 0.4; }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
         
         /* Animated Background */
@@ -181,33 +176,6 @@
             100% { transform: translate(50px, 50px); }
         }
         
-        .drone-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-        
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--primary);
-            border-radius: 50%;
-            animation: floatParticle 15s infinite;
-            opacity: 0.4;
-        }
-        
-        @keyframes floatParticle {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-100px) translateX(50px); }
-            50% { transform: translateY(-50px) translateX(-30px); }
-            75% { transform: translateY(-80px) translateX(20px); }
-        }
-        
         body.light-mode {
             background: linear-gradient(135deg, #e3f2fd 0%, #f5f5f5 100%);
             color: #1a1a2e;
@@ -215,6 +183,7 @@
         
         body.light-mode .bg-animation { opacity: 0.08; }
         body.light-mode .grid-overlay { opacity: 0.02; }
+        body.light-mode .earth { opacity: 0.3; }
         
         .controls {
             position: fixed;
@@ -976,10 +945,20 @@
             .mission-specs {
                 grid-template-columns: 1fr;
             }
+            
+            .earth {
+                width: 400px;
+                height: 400px;
+            }
+            
+            .satellite-orbit {
+                width: 550px;
+                height: 550px;
+            }
         }
         
         @media print {
-            .controls, .bg-animation, .grid-overlay, .drone-particles, .visitor-counter, .satellite-orbit-container { display: none; }
+            .controls, .bg-animation, .grid-overlay, .visitor-counter, .space-background { display: none; }
             .container { grid-template-columns: 280px 1fr; gap: 15px; }
             body { background: white !important; color: black !important; }
             .timeline-item, .project-card { page-break-inside: avoid; }
@@ -998,60 +977,72 @@
     </style>
 </head>
 <body class="dark-mode">
-    <!-- Realistic Satellite Orbiting OVER Resume -->
-    <div class="satellite-orbit-container">
-        <div class="orbit-trail"></div>
-        <div class="orbiting-satellite">
-            <svg class="satellite-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="solarGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" style="stop-color:#1a4d6d;stop-opacity:1" />
-                        <stop offset="50%" style="stop-color:#2a5d7d;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#1a4d6d;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                
-                <!-- Left Solar Panel -->
-                <rect class="sat-panel-left" x="10" y="70" width="50" height="60" rx="3"/>
-                <line x1="10" y1="80" x2="60" y2="80" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
-                <line x1="10" y1="90" x2="60" y2="90" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
-                <line x1="10" y1="100" x2="60" y2="100" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
-                <line x1="10" y1="110" x2="60" y2="110" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
-                <line x1="10" y1="120" x2="60" y2="120" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
-                
-                <!-- Main Satellite Body -->
-                <rect class="sat-body-main" x="70" y="60" width="60" height="80" rx="5"/>
-                
-                <!-- SAR Antenna (Large Dish) -->
-                <ellipse class="sat-dish" cx="100" cy="50" rx="25" ry="8"/>
-                <line class="sat-antenna-main" x1="100" y1="50" x2="100" y2="30"/>
-                <circle cx="100" cy="30" r="5" fill="#00d4ff"/>
-                
-                <!-- EO Sensor (Camera) -->
-                <rect x="85" y="140" width="30" height="15" rx="3" fill="#1a2a4a" stroke="#00d4ff" stroke-width="2"/>
-                <circle class="sat-sensor" cx="100" cy="147" r="4"/>
-                
-                <!-- Right Solar Panel -->
-                <rect class="sat-panel-right" x="140" y="70" width="50" height="60" rx="3"/>
-                <line x1="140" y1="80" x2="190" y2="80" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
-                <line x1="140" y1="90" x2="190" y2="90" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
-                <line x1="140" y1="100" x2="190" y2="100" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
-                <line x1="140" y1="110" x2="190" y2="110" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
-                <line x1="140" y1="120" x2="190" y2="120" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
-                
-                <!-- Status Lights -->
-                <circle class="sat-sensor" cx="80" cy="75" r="3"/>
-                <circle class="sat-sensor" cx="120" cy="75" r="3"/>
-                
-                <!-- Mission Label -->
-                <text x="100" y="180" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="bold">DRISHTI</text>
-            </svg>
+    <!-- Space Background with Earth and Drishti Satellite -->
+    <div class="space-background">
+        <div class="stars" id="stars"></div>
+        <div class="earth"></div>
+        <div class="satellite-orbit">
+            <div class="orbit-path"></div>
+            <div class="drishti-satellite">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="solarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#1a4d6d;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#2a6d8d;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#1a4d6d;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- Left Solar Panel -->
+                    <rect x="5" y="35" width="25" height="30" rx="2" fill="url(#solarGrad)" stroke="#00d4ff" stroke-width="1.5"/>
+                    <line x1="5" y1="40" x2="30" y2="40" stroke="#00d4ff" stroke-width="0.5" opacity="0.6"/>
+                    <line x1="5" y1="45" x2="30" y2="45" stroke="#00d4ff" stroke-width="0.5" opacity="0.6"/>
+                    <line x1="5" y1="50" x2="30" y2="50" stroke="#00d4ff" stroke-width="0.5" opacity="0.6"/>
+                    <line x1="5" y1="55" x2="30" y2="55" stroke="#00d4ff" stroke-width="0.5" opacity="0.6"/>
+                    <line x1="5" y1="60" x2="30" y2="60" stroke="#00d4ff" stroke-width="0.5" opacity="0.6"/>
+                    
+                    <!-- Main Body -->
+                    <rect x="35" y="30" width="30" height="40" rx="3" fill="#2a3a5a" stroke="#00d4ff" stroke-width="2"/>
+                    
+                    <!-- SAR Antenna (Top) -->
+                    <ellipse cx="50" cy="25" rx="12" ry="4" fill="#1a2a4a" stroke="#00d4ff" stroke-width="1.5"/>
+                    <line x1="50" y1="25" x2="50" y2="15" stroke="#00d4ff" stroke-width="2"/>
+                    <circle cx="50" cy="15" r="3" fill="#00d4ff">
+                        <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    
+                    <!-- MSI Camera (Bottom) -->
+                    <rect x="42" y="70" width="16" height="8" rx="2" fill="#1a2a4a" stroke="#00d4ff" stroke-width="1.5"/>
+                    <circle cx="50" cy="74" r="2.5" fill="#00d4ff">
+                        <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" repeatCount="indefinite"/>
+                    </circle>
+                    
+                    <!-- Right Solar Panel -->
+                    <rect x="70" y="35" width="25" height="30" rx="2" fill="url(#solarGrad)" stroke="#00d4ff" stroke-width="1.5"/>
+                    <line x1="70" y1="40" x2="95" y2="40" stroke="#00d4ff" stroke-width="0.5" opacity="0.6"/>
+                    <line x1="70" y1="45" x2="95" y2="45" stroke="#00d4ff" stroke-width="0.5" opacity="0.6"/>
+                    <line x1="70" y1="50" x2="95" y2="50" stroke="#00d4ff" stroke-width="0.5" opacity="0.6"/>
+                    <line x1="70" y1="55" x2="95" y2="55" stroke="#00d4ff" stroke-width="0.5" opacity="0.6"/>
+                    <line x1="70" y1="60" x2="95" y2="60" stroke="#00d4ff" stroke-width="0.5" opacity="0.6"/>
+                    
+                    <!-- Status Lights -->
+                    <circle cx="40" cy="38" r="1.5" fill="#ff4444">
+                        <animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="60" cy="38" r="1.5" fill="#00ff00">
+                        <animate attributeName="opacity" values="1;0.2;1" dur="1s" begin="0.5s" repeatCount="indefinite"/>
+                    </circle>
+                    
+                    <!-- Comms Antenna -->
+                    <line x1="55" y1="30" x2="60" y2="25" stroke="#00d4ff" stroke-width="1.5"/>
+                    <circle cx="60" cy="25" r="2" fill="#00d4ff"/>
+                </svg>
+            </div>
         </div>
     </div>
     
     <div class="bg-animation"></div>
     <div class="grid-overlay"></div>
-    <div class="drone-particles" id="particles"></div>
     
     <div class="controls">
         <button class="btn" onclick="toggleTheme()" title="Toggle Theme">
@@ -1365,20 +1356,20 @@
     </div>
     
     <script>
-        function createParticles() {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                container.appendChild(particle);
+        // Create stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
             }
         }
         
-        createParticles();
+        createStars();
         
         function toggleTheme() {
             const body = document.body;
