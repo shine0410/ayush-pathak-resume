@@ -40,15 +40,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 10000;
+            z-index: 10001;
             pointer-events: none;
             opacity: 1;
-            transition: opacity 0.8s ease;
+            transition: opacity 1s ease 5s;
         }
         
-        .satellite-orbit-container.hidden {
+        .satellite-orbit-container.fade-out {
             opacity: 0;
-            pointer-events: none;
         }
         
         /* Orbit path visualization */
@@ -56,17 +55,11 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 140%;
-            height: 140%;
+            width: 80vmin;
+            height: 80vmin;
             transform: translate(-50%, -50%);
-            border: 2px dashed rgba(0, 212, 255, 0.3);
+            border: 3px dashed rgba(0, 212, 255, 0.5);
             border-radius: 50%;
-            animation: rotateOrbitPath 4s linear infinite;
-        }
-        
-        @keyframes rotateOrbitPath {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
         
         /* Satellite orbiting around the page */
@@ -74,42 +67,48 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 80px;
-            height: 100px;
-            animation: orbitAround 4s linear infinite;
+            width: 100px;
+            height: 120px;
+            animation: orbitAround 5s linear infinite;
             transform-origin: 0 0;
+            z-index: 10002;
         }
         
         @keyframes orbitAround {
             0% {
-                transform: translate(-50%, -50%) rotate(0deg) translateX(70vw) rotate(0deg);
+                transform: translate(-50%, -50%) rotate(0deg) translateX(40vmin) rotate(0deg);
             }
             100% {
-                transform: translate(-50%, -50%) rotate(360deg) translateX(70vw) rotate(-360deg);
+                transform: translate(-50%, -50%) rotate(360deg) translateX(40vmin) rotate(-360deg);
             }
         }
         
         /* Satellite body */
         .sat-body {
             position: relative;
-            width: 60px;
-            height: 80px;
-            background: linear-gradient(135deg, #2a2a4a, #1a1a3a);
-            border-radius: 8px;
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            width: 70px;
+            height: 90px;
+            background: linear-gradient(135deg, #3a3a5a, #2a2a4a);
+            border-radius: 10px;
+            box-shadow: 
+                0 0 40px rgba(0, 212, 255, 0.8),
+                inset 0 0 20px rgba(0, 212, 255, 0.3);
             margin: 0 auto;
+            border: 2px solid rgba(0, 212, 255, 0.6);
         }
         
         /* Solar panels */
         .sat-panel {
             position: absolute;
             top: 50%;
-            width: 45px;
-            height: 60px;
-            background: linear-gradient(90deg, #1a4d6d 0%, #0d2636 50%, #1a4d6d 100%);
-            border: 2px solid var(--primary);
+            width: 50px;
+            height: 70px;
+            background: linear-gradient(90deg, #2a5d7d 0%, #1a4d6d 50%, #2a5d7d 100%);
+            border: 3px solid var(--primary);
             transform: translateY(-50%);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            box-shadow: 
+                0 0 25px rgba(0, 212, 255, 0.7),
+                inset 0 0 15px rgba(0, 212, 255, 0.3);
         }
         
         .sat-panel::before {
@@ -122,96 +121,124 @@
             background: repeating-linear-gradient(
                 0deg,
                 transparent,
-                transparent 6px,
-                rgba(0, 212, 255, 0.2) 6px,
-                rgba(0, 212, 255, 0.2) 8px
+                transparent 7px,
+                rgba(0, 212, 255, 0.3) 7px,
+                rgba(0, 212, 255, 0.3) 9px
             );
         }
         
         .sat-panel.left {
             right: 100%;
-            margin-right: 3px;
+            margin-right: 5px;
+            animation: panelGlowLeft 2s ease-in-out infinite;
         }
         
         .sat-panel.right {
             left: 100%;
-            margin-left: 3px;
+            margin-left: 5px;
+            animation: panelGlowRight 2s ease-in-out infinite 1s;
+        }
+        
+        @keyframes panelGlowLeft {
+            0%, 100% { box-shadow: 0 0 25px rgba(0, 212, 255, 0.7); }
+            50% { box-shadow: 0 0 40px rgba(0, 212, 255, 1); }
+        }
+        
+        @keyframes panelGlowRight {
+            0%, 100% { box-shadow: 0 0 25px rgba(0, 212, 255, 0.7); }
+            50% { box-shadow: 0 0 40px rgba(0, 212, 255, 1); }
         }
         
         /* Antenna */
         .sat-antenna {
             position: absolute;
-            top: -20px;
+            top: -25px;
             left: 50%;
             transform: translateX(-50%);
-            width: 2px;
-            height: 20px;
-            background: linear-gradient(180deg, var(--primary), transparent);
+            width: 3px;
+            height: 25px;
+            background: linear-gradient(180deg, var(--primary), rgba(0, 212, 255, 0.3));
         }
         
         .sat-antenna::after {
             content: '';
             position: absolute;
-            top: 0;
+            top: -5px;
             left: 50%;
             transform: translateX(-50%);
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             background: var(--primary);
             border-radius: 50%;
-            box-shadow: 0 0 15px var(--primary);
-            animation: antennaPulse 1s ease-in-out infinite;
+            box-shadow: 0 0 20px var(--primary);
+            animation: antennaPulse 1.5s ease-in-out infinite;
         }
         
         @keyframes antennaPulse {
-            0%, 100% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.3); }
+            0%, 100% { 
+                transform: translateX(-50%) scale(1); 
+                box-shadow: 0 0 20px var(--primary);
+            }
+            50% { 
+                transform: translateX(-50%) scale(1.4); 
+                box-shadow: 0 0 30px var(--primary);
+            }
         }
         
         /* Satellite lights */
         .sat-light {
             position: absolute;
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background: #ff4444;
             border-radius: 50%;
-            top: 15px;
-            right: 8px;
+            top: 20px;
+            right: 10px;
+            box-shadow: 0 0 10px #ff4444;
             animation: blink 1s ease-in-out infinite;
         }
         
+        .sat-light:nth-child(2) {
+            top: 35px;
+            animation-delay: 0.5s;
+        }
+        
         @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+            0%, 100% { opacity: 1; box-shadow: 0 0 10px #ff4444; }
+            50% { opacity: 0.3; box-shadow: 0 0 5px #ff4444; }
         }
         
         /* Signal waves from satellite */
         .sat-signal {
             position: absolute;
-            top: -20px;
+            top: -25px;
             left: 50%;
             transform: translateX(-50%);
-            width: 30px;
-            height: 30px;
-            border: 2px solid var(--primary);
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--primary);
             border-radius: 50%;
             opacity: 0;
-            animation: signalWave 2s ease-out infinite;
+            animation: signalWave 2.5s ease-out infinite;
         }
         
         .sat-signal:nth-child(2) {
-            animation-delay: 0.7s;
+            animation-delay: 0.8s;
+        }
+        
+        .sat-signal:nth-child(3) {
+            animation-delay: 1.6s;
         }
         
         @keyframes signalWave {
             0% {
-                width: 15px;
-                height: 15px;
+                width: 20px;
+                height: 20px;
                 opacity: 1;
             }
             100% {
-                width: 60px;
-                height: 60px;
+                width: 80px;
+                height: 80px;
                 opacity: 0;
             }
         }
@@ -219,18 +246,19 @@
         /* Mission Drishti label following satellite */
         .sat-label {
             position: absolute;
-            top: -50px;
+            top: -60px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 212, 255, 0.9);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.95), rgba(0, 102, 255, 0.95));
             color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75em;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.85em;
             font-weight: 700;
             white-space: nowrap;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
-            letter-spacing: 1px;
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.8);
+            letter-spacing: 2px;
+            border: 2px solid var(--primary);
         }
         
         /* Loading overlay */
@@ -240,33 +268,43 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(5, 8, 20, 0.95);
-            z-index: 9999;
+            background: rgba(5, 8, 20, 0.98);
+            z-index: 10000;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             opacity: 1;
-            transition: opacity 0.8s ease;
+            transition: opacity 1s ease 5s;
         }
         
-        .loading-overlay.hidden {
+        .loading-overlay.fade-out {
             opacity: 0;
             pointer-events: none;
         }
         
         .loading-text {
-            font-size: 1.5em;
+            font-size: 2em;
             font-weight: 700;
             color: var(--primary);
             text-align: center;
             animation: textPulse 2s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
         }
         
         .loading-subtext {
-            font-size: 0.9em;
+            font-size: 1em;
             color: var(--accent);
-            margin-top: 10px;
-            letter-spacing: 3px;
+            margin-top: 15px;
+            letter-spacing: 4px;
+            animation: textPulse 2s ease-in-out infinite 0.5s;
+        }
+        
+        .orbit-info {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #888;
+            font-style: italic;
         }
         
         @keyframes textPulse {
@@ -1117,10 +1155,10 @@
             
             @keyframes orbitAround {
                 0% {
-                    transform: translate(-50%, -50%) rotate(0deg) translateX(50vw) rotate(0deg);
+                    transform: translate(-50%, -50%) rotate(0deg) translateX(35vmin) rotate(0deg);
                 }
                 100% {
-                    transform: translate(-50%, -50%) rotate(360deg) translateX(50vw) rotate(-360deg);
+                    transform: translate(-50%, -50%) rotate(360deg) translateX(35vmin) rotate(-360deg);
                 }
             }
         }
@@ -1149,8 +1187,9 @@
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
         <div>
-            <div class="loading-text">Initializing Mission Drishti</div>
+            <div class="loading-text">🛰️ Initializing Mission Drishti</div>
             <div class="loading-subtext">GALAXEYE SPACE</div>
+            <div class="orbit-info">Watch the satellite orbit around...</div>
         </div>
     </div>
     
@@ -1158,13 +1197,15 @@
     <div class="satellite-orbit-container" id="satelliteOrbit">
         <div class="orbit-path"></div>
         <div class="orbiting-satellite">
-            <div class="sat-label">DRISHTI</div>
+            <div class="sat-label">🛰️ DRISHTI</div>
+            <div class="sat-signal"></div>
             <div class="sat-signal"></div>
             <div class="sat-signal"></div>
             <div class="sat-body">
                 <div class="sat-antenna"></div>
                 <div class="sat-panel left"></div>
                 <div class="sat-panel right"></div>
+                <div class="sat-light"></div>
                 <div class="sat-light"></div>
             </div>
         </div>
@@ -1507,12 +1548,10 @@
         createParticles();
         
         // Hide satellite and overlay after orbit completes
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loadingOverlay').classList.add('hidden');
-                document.getElementById('satelliteOrbit').classList.add('hidden');
-            }, 4000); // 4 seconds - one complete orbit
-        });
+        setTimeout(() => {
+            document.getElementById('loadingOverlay').classList.add('fade-out');
+            document.getElementById('satelliteOrbit').classList.add('fade-out');
+        }, 6000); // 6 seconds - more than one complete orbit
         
         function toggleTheme() {
             const body = document.body;
@@ -1545,7 +1584,7 @@
                     const width = bar.getAttribute('data-width');
                     bar.style.width = width + '%';
                 });
-            }, 4500);
+            }, 6500);
         });
         
         // Scroll reveal animation
@@ -1565,7 +1604,7 @@
         window.addEventListener('scroll', revealOnScroll);
         setTimeout(() => {
             revealOnScroll();
-        }, 4000);
+        }, 6000);
     </script>
 </body>
 </html>
